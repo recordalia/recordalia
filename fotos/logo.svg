@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 741.49 162.14">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4, .cls-5 {
+        isolation: isolate;
+      }
+
+      .cls-6, .cls-3 {
+        fill: #f59e54;
+      }
+
+      .cls-2 {
+        fill: #e8d8c2;
+      }
+
+      .cls-2, .cls-3, .cls-4, .cls-5 {
+        font-family: AbrilFatface-Regular, 'Abril Fatface';
+        font-size: 136.75px;
+      }
+
+      .cls-4 {
+        fill: #f29799;
+      }
+
+      .cls-5 {
+        fill: #689a85;
+      }
+    </style>
+  </defs>
+  <g>
+    <ellipse class="cls-6" cx="71.99" cy="142.95" rx="6.1" ry="19.4" transform="translate(-21.06 12.73) rotate(-8.82)"/>
+    <ellipse class="cls-6" cx="45.01" cy="143.07" rx="19.4" ry="6.1" transform="translate(-104.76 150.98) rotate(-75.56)"/>
+    <ellipse class="cls-6" cx="22.51" cy="128.41" rx="19.4" ry="6.1" transform="translate(-57.48 25.47) rotate(-27.91)"/>
+    <ellipse class="cls-6" cx="19.4" cy="102.95" rx="19.4" ry="6.1" transform="translate(-2.24 .45) rotate(-1.25)"/>
+    <ellipse class="cls-6" cx="19.61" cy="80.96" rx="6.1" ry="19.4" transform="translate(-63.29 89.13) rotate(-82.01)"/>
+  </g>
+  <g class="cls-1">
+    <text class="cls-5" transform="translate(47.91 116.24)"><tspan x="0" y="0">R</tspan></text>
+    <text class="cls-4" transform="translate(145.81 116.24)"><tspan x="0" y="0">e</tspan></text>
+    <text class="cls-2" transform="translate(216.41 116.24)"><tspan x="0" y="0">c</tspan></text>
+    <text class="cls-3" transform="translate(282.41 116.24)"><tspan x="0" y="0">o</tspan></text>
+    <text class="cls-5" transform="translate(356.71 116.24)"><tspan x="0" y="0">r</tspan></text>
+    <text class="cls-4" transform="translate(424.41 116.24)"><tspan x="0" y="0">d</tspan></text>
+    <text class="cls-2" transform="translate(504.81 116.24)"><tspan x="0" y="0">a</tspan></text>
+    <text class="cls-3" transform="translate(579.91 116.24)"><tspan x="0" y="0">l</tspan></text>
+    <text class="cls-5" transform="translate(623.11 116.24)"><tspan x="0" y="0">i</tspan></text>
+    <text class="cls-4" transform="translate(666.41 116.24)"><tspan x="0" y="0">a</tspan></text>
+  </g>
+</svg>
