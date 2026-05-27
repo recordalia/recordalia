@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recordalia — Más que una memoria</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --verde: #699A85; --rosado: #F2989A; --naranjo: #F69E54;
+    --crema: #E8D8C1; --petroleo: #587B8C;
+    --crema-claro: #FAF6F0; --crema-medio: #F0E8DC;
+    --texto: #2C2218; --texto-suave: #6B5B4E; --texto-muy-suave: #A8917E;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family:'DM Sans',sans-serif; font-weight:300; background:var(--crema-claro); color:var(--texto); line-height:1.75; overflow-x:hidden; }
+  h1,h2,h3,h4 { font-family:'Playfair Display',Georgia,serif; font-weight:400; line-height:1.2; }
+
+  /* NAV */
+  nav { position:fixed; top:0; left:0; right:0; z-index:100; padding:1.1rem 3rem; display:flex; align-items:center; justify-content:space-between; background:rgba(250,246,240,0.94); backdrop-filter:blur(10px); border-bottom:1px solid rgba(104,154,133,0.12); }
+  .nav-logo img { height:38px; width:auto; }
+  nav ul { list-style:none; display:flex; gap:2.5rem; }
+  nav ul a { text-decoration:none; font-size:0.8rem; font-weight:400; color:var(--texto-suave); letter-spacing:0.08em; text-transform:uppercase; transition:color 0.2s; }
+  nav ul a:hover { color:var(--verde); }
+  .nav-cta { background:var(--verde) !important; color:white !important; padding:0.5rem 1.3rem; border-radius:100px; font-size:0.77rem !important; }
+  .nav-cta:hover { background:#527a6a !important; }
+
+  /* HERO */
+  .hero { min-height:100vh; display:grid; grid-template-columns:1fr 1fr; position:relative; overflow:hidden; }
+  .hero-left { display:flex; flex-direction:column; justify-content:center; padding:9rem 4rem 6rem 6rem; position:relative; z-index:2; }
+  .hero-eyebrow { font-size:0.7rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--verde); margin-bottom:1.5rem; display:flex; align-items:center; gap:0.75rem; }
+  .hero-eyebrow::before { content:''; display:block; width:2rem; height:1px; background:var(--verde); }
+  .hero h1 { font-size:clamp(2.6rem,4vw,3.6rem); line-height:1.1; margin-bottom:1.5rem; color:var(--texto); }
+  .hero h1 em { font-style:italic; color:var(--verde); }
+  .hero-sub { font-size:1rem; color:var(--texto-suave); max-width:420px; line-height:1.85; margin-bottom:2rem; }
+  .hero-btns { display:flex; flex-direction:column; gap:0.75rem; align-self:flex-start; }
+  .hero-cta { display:inline-flex; align-items:center; gap:0.75rem; background:var(--verde); color:white; text-decoration:none; padding:1rem 2rem; border-radius:100px; font-size:0.88rem; font-weight:400; letter-spacing:0.03em; transition:all 0.25s; }
+  .hero-cta:hover { background:#527a6a; transform:translateY(-2px); }
+  .hero-cta-alt { display:inline-flex; align-items:center; gap:0.75rem; background:transparent; color:var(--texto-suave); text-decoration:none; padding:0.85rem 2rem; border-radius:100px; font-size:0.85rem; border:1px solid var(--crema); transition:all 0.25s; }
+  .hero-cta-alt:hover { border-color:var(--verde); color:var(--verde); }
+  .hero-cta svg, .hero-cta-alt svg { width:18px; height:18px; flex-shrink:0; }
+  .hero-right { position:relative; overflow:hidden; }
+  .hero-right img { width:100%; height:100%; object-fit:cover; object-position:center top; }
+  .hero-right-overlay { position:absolute; bottom:2rem; left:2rem; right:2rem; background:rgba(250,246,240,0.92); border-radius:1rem; padding:1.25rem 1.5rem; backdrop-filter:blur(4px); }
+  .hero-right-overlay p { font-family:'Playfair Display',serif; font-style:italic; font-size:1rem; color:var(--texto); line-height:1.5; }
+  .hero-right-overlay span { display:block; font-size:0.72rem; color:var(--verde); letter-spacing:0.1em; text-transform:uppercase; margin-top:0.5rem; }
+
+  /* SECCIONES */
+  section { padding:6rem 0; }
+  .container { max-width:1100px; margin:0 auto; padding:0 3rem; }
+  .section-label { font-size:0.7rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--verde); margin-bottom:1rem; display:flex; align-items:center; gap:0.75rem; }
+  .section-label::before { content:''; display:block; width:2rem; height:1px; background:var(--verde); }
+  .section-title { font-size:clamp(1.9rem,2.8vw,2.6rem); margin-bottom:1rem; }
+  .section-desc { font-size:0.97rem; color:var(--texto-suave); max-width:540px; line-height:1.85; }
+
+  /* ABOUT */
+  .about { background:white; }
+  .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center; }
+  .about-foto { border-radius:1.5rem; overflow:hidden; position:relative; aspect-ratio:4/5; }
+  .about-foto img { width:100%; height:100%; object-fit:cover; object-position:center; }
+  .about-foto-badge { position:absolute; bottom:1.5rem; left:1.5rem; right:1.5rem; background:rgba(104,154,133,0.88); backdrop-filter:blur(6px); border-radius:1rem; padding:1.1rem 1.4rem; color:white; }
+  .about-foto-badge p { font-family:'Playfair Display',serif; font-style:italic; font-size:0.92rem; color:white; line-height:1.5; }
+  .about-foto-badge span { display:block; font-size:0.68rem; margin-top:0.45rem; opacity:0.75; letter-spacing:0.1em; text-transform:uppercase; }
+  .about-text blockquote { font-family:'Playfair Display',serif; font-style:italic; font-size:1.3rem; color:var(--verde); line-height:1.5; margin:1.5rem 0; padding-left:1.5rem; border-left:2px solid var(--rosado); }
+  .about-text p { color:var(--texto-suave); margin-bottom:1rem; font-size:0.96rem; line-height:1.85; }
+  .cristi-badge { display:inline-flex; align-items:center; gap:0.75rem; background:var(--crema-medio); border-radius:100px; padding:0.55rem 1.2rem 0.55rem 0.55rem; margin-top:1.5rem; }
+  .cristi-avatar { width:42px; height:42px; border-radius:50%; overflow:hidden; flex-shrink:0; border:2px solid var(--verde); }
+  .cristi-avatar img { width:100%; height:100%; object-fit:cover; object-position:center top; }
+  .cristi-badge p { font-size:0.82rem; color:var(--texto-suave); margin:0; line-height:1.3; }
+  .cristi-badge strong { display:block; font-weight:400; color:var(--texto); }
+
+  /* PRODUCTOS */
+  .productos { background:var(--crema-claro); }
+  .productos-header { margin-bottom:3.5rem; }
+  .productos-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; }
+  .producto-card { background:white; border-radius:1.5rem; overflow:hidden; transition:transform 0.25s, box-shadow 0.25s; }
+  .producto-card:hover { transform:translateY(-4px); box-shadow:0 20px 60px rgba(104,154,133,0.12); }
+  .producto-img { height:240px; overflow:hidden; position:relative; }
+  .producto-img img { width:100%; height:100%; object-fit:cover; object-position:center; transition:transform 0.4s; }
+  .producto-card:hover .producto-img img { transform:scale(1.04); }
+  .producto-badge { position:absolute; top:1rem; right:1rem; background:white; border-radius:100px; padding:0.25rem 0.75rem; font-size:0.7rem; color:var(--verde); letter-spacing:0.06em; text-transform:uppercase; }
+  .producto-body { padding:1.75rem; }
+  .producto-body h3 { font-size:1.2rem; margin-bottom:0.4rem; }
+  .producto-format { font-size:0.75rem; color:var(--texto-muy-suave); letter-spacing:0.06em; text-transform:uppercase; margin-bottom:0.85rem; }
+  .producto-desc { font-size:0.87rem; color:var(--texto-suave); line-height:1.75; margin-bottom:1.25rem; }
+  .producto-includes { background:var(--crema-claro); border-radius:0.75rem; padding:1rem; margin-bottom:1.5rem; }
+  .producto-includes p { font-size:0.78rem; color:var(--texto-suave); margin-bottom:0.3rem; display:flex; align-items:flex-start; gap:0.4rem; }
+  .producto-includes p::before { content:'✦'; color:var(--verde); font-size:0.6rem; margin-top:0.25rem; flex-shrink:0; }
+  .producto-precios { border-top:1px solid var(--crema-medio); padding-top:1.25rem; }
+  .producto-precios h4 { font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--texto-muy-suave); margin-bottom:0.75rem; font-family:'DM Sans',sans-serif; font-weight:300; }
+  .precio-row { display:flex; justify-content:space-between; align-items:center; padding:0.35rem 0; border-bottom:1px solid var(--crema-claro); }
+  .precio-row:last-child { border-bottom:none; }
+  .precio-row span:first-child { font-size:0.82rem; color:var(--texto-suave); }
+  .precio-row strong { font-family:'Playfair Display',serif; font-weight:500; font-size:1rem; color:var(--verde); }
+  .precio-unico { display:flex; align-items:baseline; gap:0.5rem; margin-top:0.5rem; }
+  .precio-unico strong { font-family:'Playfair Display',serif; font-size:2rem; font-weight:500; color:var(--verde); }
+  .precio-unico span { font-size:0.82rem; color:var(--texto-muy-suave); }
+
+  /* PROCESO */
+  .proceso { background:var(--verde); color:white; }
+  .proceso .section-label { color:rgba(255,255,255,0.6); }
+  .proceso .section-label::before { background:rgba(255,255,255,0.4); }
+  .proceso .section-title { color:white; }
+  .proceso .section-desc { color:rgba(255,255,255,0.75); max-width:500px; }
+  .proceso-header { margin-bottom:4rem; }
+  .proceso-steps { display:grid; grid-template-columns:repeat(7,1fr); gap:0; position:relative; }
+  .proceso-steps::before { content:''; position:absolute; top:28px; left:7%; right:7%; height:1px; background:rgba(255,255,255,0.2); z-index:0; }
+  .paso { display:flex; flex-direction:column; align-items:center; text-align:center; padding:0 0.5rem; position:relative; z-index:1; }
+  .paso-num { width:56px; height:56px; border-radius:50%; background:rgba(255,255,255,0.15); border:1.5px solid rgba(255,255,255,0.4); display:flex; align-items:center; justify-content:center; font-family:'Playfair Display',serif; font-size:1.1rem; color:white; margin-bottom:1rem; transition:all 0.2s; }
+  .paso:hover .paso-num { background:rgba(255,255,255,0.25); transform:scale(1.05); }
+  .paso-titulo { font-size:0.8rem; font-weight:400; line-height:1.4; color:rgba(255,255,255,0.9); margin-bottom:0.35rem; }
+  .paso-desc { font-size:0.72rem; color:rgba(255,255,255,0.55); line-height:1.5; }
+  .aviso-retiro { margin-top:3rem; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:1rem; padding:1.5rem 2rem; display:flex; align-items:center; gap:1.5rem; }
+  .aviso-icon { font-size:1.5rem; flex-shrink:0; }
+  .aviso-retiro p { font-size:0.88rem; color:rgba(255,255,255,0.85); line-height:1.65; }
+
+  /* GALERÍA — grid cuadrado 3x2 */
+  .galeria { background:white; }
+  .galeria-grid { display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(2,280px); gap:1rem; margin-top:3rem; }
+  .galeria-item { border-radius:1rem; overflow:hidden; }
+  .galeria-item img { width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.4s; }
+  .galeria-item:hover img { transform:scale(1.03); }
+
+  /* REVIEWS */
+  .reviews { background:var(--crema-medio); }
+  .reviews-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; margin-top:3rem; }
+  .review-card { background:white; border-radius:1.25rem; padding:1.75rem; display:flex; flex-direction:column; gap:1rem; }
+  .review-stars { color:var(--naranjo); font-size:1rem; letter-spacing:0.1em; }
+  .review-texto { font-family:'Playfair Display',serif; font-style:italic; font-size:0.95rem; color:var(--texto); line-height:1.75; flex:1; }
+  .review-footer { border-top:1px solid var(--crema-medio); padding-top:1rem; }
+  .review-nombre { font-size:0.85rem; font-weight:400; color:var(--texto); margin-bottom:0.15rem; }
+  .review-producto { font-size:0.75rem; color:var(--verde); letter-spacing:0.06em; text-transform:uppercase; }
+
+  /* FAQ */
+  .faq { background:var(--crema-claro); }
+  .faq-grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:3rem; }
+  .faq-item { background:white; border-radius:1rem; padding:1.5rem; cursor:pointer; transition:background 0.2s; }
+  .faq-item:hover { background:var(--crema-medio); }
+  .faq-q { font-family:'Playfair Display',serif; font-size:1rem; margin-bottom:0.75rem; display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; }
+  .faq-q span { color:var(--verde); font-size:1.1rem; }
+  .faq-a { font-size:0.87rem; color:var(--texto-suave); line-height:1.75; }
+
+  /* CTA FINAL */
+  .cta-final { background:var(--crema); padding:0; display:grid; grid-template-columns:1fr 1fr; min-height:520px; }
+  .cta-foto { overflow:hidden; }
+  .cta-foto img { width:100%; height:100%; object-fit:cover; object-position:center top; }
+  .cta-content { display:flex; flex-direction:column; justify-content:center; padding:5rem 4rem; }
+  .cta-content .section-label { margin-bottom:1rem; }
+  .cta-content h2 { font-size:clamp(1.8rem,3vw,2.8rem); margin-bottom:1rem; line-height:1.15; }
+  .cta-content h2 em { font-style:italic; color:var(--verde); }
+  .cta-content p { font-size:0.97rem; color:var(--texto-suave); line-height:1.8; margin-bottom:2rem; }
+  .cta-btns { display:flex; flex-direction:column; gap:0.75rem; align-items:flex-start; }
+  .cta-btn { display:inline-flex; align-items:center; gap:0.75rem; background:var(--texto); color:white; text-decoration:none; padding:1rem 2rem; border-radius:100px; font-size:0.9rem; font-weight:400; letter-spacing:0.03em; transition:all 0.25s; }
+  .cta-btn:hover { background:var(--verde); transform:translateY(-2px); }
+  .cta-btn-mail { background:transparent; color:var(--texto); border:1px solid var(--crema-medio); }
+  .cta-btn-mail:hover { border-color:var(--verde); background:transparent; color:var(--verde); transform:translateY(-2px); }
+  .cta-btn svg { width:18px; height:18px; flex-shrink:0; }
+  .cupos-badge { display:inline-flex; align-items:center; gap:0.5rem; background:var(--rosado); color:#7a2832; border-radius:100px; padding:0.4rem 1rem; font-size:0.78rem; margin-top:1rem; }
+  .cupos-dot { width:6px; height:6px; border-radius:50%; background:#c44455; animation:pulse 1.5s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  /* FOOTER */
+  footer { background:var(--texto); color:rgba(255,255,255,0.6); text-align:center; padding:2.5rem 3rem; font-size:0.82rem; }
+  footer a { color:rgba(255,255,255,0.8); text-decoration:none; }
+  .footer-logo { margin-bottom:1rem; display:block; }
+  .footer-logo img { height:32px; width:auto; filter:brightness(0) invert(1); opacity:0.85; }
+
+  /* FADE */
+  .fade-up { opacity:0; transform:translateY(24px); transition:opacity 0.6s ease, transform 0.6s ease; }
+  .fade-up.visible { opacity:1; transform:translateY(0); }
+
+  /* RESPONSIVE */
+  @media (max-width:900px) {
+    nav { padding:1.1rem 1.5rem; }
+    nav ul { display:none; }
+    .hero, .about-grid, .cta-final { grid-template-columns:1fr; }
+    .hero-left { padding:7rem 1.5rem 3rem; }
+    .hero-right { height:55vw; min-height:260px; }
+    .productos-grid, .faq-grid { grid-template-columns:1fr; }
+    .galeria-grid { grid-template-columns:1fr 1fr; grid-template-rows:auto; }
+    .proceso-steps { grid-template-columns:1fr 1fr; gap:2rem; }
+    .proceso-steps::before { display:none; }
+    .cta-foto { height:300px; }
+    .cta-content { padding:3rem 1.5rem; }
+    .container { padding:0 1.5rem; }
+    section { padding:4rem 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo"><img src="fotos/logo.svg" alt="Recordalia"></a>
+  <ul>
+    <li><a href="#que-es">Nosotros</a></li>
+    <li><a href="#productos">Productos</a></li>
+    <li><a href="#proceso">Proceso</a></li>
+    <li><a href="#galeria">Galería</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="https://www.instagram.com/recordaliachile" target="_blank" class="nav-cta">Escribir por DM</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Estudio boutique · Santiago de Chile</p>
+    <h1>Las manualidades de tus hijos merecen <em>algo más</em> que una caja de cartón</h1>
+    <p class="hero-sub">Transformamos sus dibujos y creaciones en piezas editoriales únicas. Cada pedido es trabajado uno a uno, con mucho cuidado.</p>
+    <div class="hero-btns">
+      <a href="https://www.instagram.com/recordaliachile" target="_blank" class="hero-cta">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        Escríbeme por Instagram
+      </a>
+      <a href="mailto:recordaliachile@gmail.com" class="hero-cta-alt">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Cotizar por correo
+      </a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="fotos/foto-hero.jpg" alt="Niña con libro de manualidades Recordalia">
+    <div class="hero-right-overlay">
+      <p>"Preservar la infancia como una obra viva."</p>
+      <span>— Recordalia</span>
+    </div>
+  </div>
+</section>
+
+<!-- QUÉ ES RECORDALIA -->
+<section class="about" id="que-es">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-foto fade-up">
+        <img src="fotos/foto-about.jpg" alt="Niños pintando">
+        <div class="about-foto-badge">
+          <p>"Arte que se usa, no que se guarda."</p>
+          <span>— Recordalia</span>
+        </div>
+      </div>
+      <div class="about-text fade-up" style="transition-delay:0.1s;">
+        <p class="section-label">Quiénes somos</p>
+        <h2 class="section-title">Más que una memoria</h2>
+        <blockquote>Las manualidades de tus hijos se acumulan... y no tienes el corazón para botarlas.</blockquote>
+        <p>Recordalia es un estudio boutique que transforma los dibujos y creaciones de los niños en piezas editoriales de alta calidad: libros, láminas y objetos que cuentan su historia.</p>
+        <p>Cada pedido es único. No hay moldes ni colecciones genéricas. Trabajo sola, uno a uno, con tiempo y cuidado dedicado a cada familia.</p>
+        <div class="cristi-badge">
+          <div class="cristi-avatar">
+            <img src="fotos/foto-cristi.jpg" alt="Cristi">
+          </div>
+          <p><strong>Soy Cristi</strong> y hago todo yo sola. Cada pedido entra a la fila y lo trabajo con mucho cuidado.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTOS -->
+<section class="productos" id="productos">
+  <div class="container">
+    <div class="productos-header fade-up">
+      <p class="section-label">Nuestros productos</p>
+      <h2 class="section-title">Piezas editoriales llenas de arte, memoria y significado</h2>
+    </div>
+    <div class="productos-grid">
+      <div class="producto-card fade-up">
+        <div class="producto-img">
+          <img src="fotos/foto-libro1.jpg" alt="Libro de manualidades Recordalia">
+          <span class="producto-badge">Más pedido</span>
+        </div>
+        <div class="producto-body">
+          <p class="producto-format">22 × 28 cm · Tapa dura</p>
+          <h3>Libro de manualidades</h3>
+          <p class="producto-desc">De 20 a 200 páginas en papel couché 170gr con polilaminado brillante. Fotografía profesional, edición y diseño editorial completo.</p>
+          <div class="producto-includes">
+            <p>Fotografía profesional de cada pieza</p>
+            <p>Edición y diseño editorial completo</p>
+            <p>Composición artística página a página</p>
+            <p>Asesoría durante todo el proyecto</p>
+            <p>Vista previa digital antes de imprimir</p>
+          </div>
+          <div class="producto-precios">
+            <h4>Precios según extensión</h4>
+            <div class="precio-row"><span>Hasta 20 páginas</span><strong>$78.000</strong></div>
+            <div class="precio-row"><span>Hasta 40 páginas</span><strong>$98.000</strong></div>
+            <div class="precio-row"><span>Hasta 60 páginas</span><strong>$118.000</strong></div>
+            <div class="precio-row"><span>Hasta 80 páginas</span><strong>$138.000</strong></div>
+            <div class="precio-row"><span>+80 páginas</span><strong>A cotizar</strong></div>
+          </div>
+        </div>
+      </div>
+      <div class="producto-card fade-up" style="transition-delay:0.1s;">
+        <div class="producto-img">
+          <img src="fotos/foto-lamina.jpg" alt="Lámina para enmarcar Recordalia">
+        </div>
+        <div class="producto-body">
+          <p class="producto-format">30 × 40 cm · Couché 350gr</p>
+          <h3>Lámina para enmarcar</h3>
+          <p class="producto-desc">Hasta 9 manualidades por composición en papel de alta gramaje. Edición editorial e impresión de alta calidad. No incluye marco.</p>
+          <div class="producto-includes">
+            <p>Edición editorial y composición artística</p>
+            <p>Impresión de alta calidad</p>
+            <p>Hasta 9 manualidades por lámina</p>
+          </div>
+          <div class="producto-precios">
+            <h4>Precio</h4>
+            <div class="precio-unico"><strong>$30.000</strong><span>por lámina</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="producto-card fade-up" style="transition-delay:0.2s;">
+        <div class="producto-img">
+          <img src="fotos/foto-posavasos1.jpg" alt="Posavasos artísticos Recordalia">
+        </div>
+        <div class="producto-body">
+          <p class="producto-format">Set de 6 · Madera enchapada</p>
+          <h3>Posavasos artísticos</h3>
+          <p class="producto-desc">Durables y resistentes al líquido. Un dibujo diferente por posavaso. Máximo 6 dibujos por set. Arte que se usa todos los días.</p>
+          <div class="producto-includes">
+            <p>6 posavasos en madera enchapada</p>
+            <p>1 dibujo por posavaso</p>
+            <p>Resistentes al líquido</p>
+          </div>
+          <div class="producto-precios">
+            <h4>Precio</h4>
+            <div class="precio-unico"><strong>$19.900</strong><span>el set de 6</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESO -->
+<section class="proceso" id="proceso">
+  <div class="container">
+    <div class="proceso-header fade-up">
+      <p class="section-label">Cómo funciona</p>
+      <h2 class="section-title">Cada página, una obra de arte.<br>Cada libro, un pedazo de su historia.</h2>
+      <p class="section-desc">Un proceso cuidado, paso a paso. Nada se imprime sin tu aprobación.</p>
+    </div>
+    <div class="proceso-steps">
+      <div class="paso fade-up"><div class="paso-num">1</div><p class="paso-titulo">Escríbeme por DM o correo</p><p class="paso-desc">Instagram @recordaliachile o recordaliachile@gmail.com</p></div>
+      <div class="paso fade-up" style="transition-delay:0.08s;"><div class="paso-num">2</div><p class="paso-titulo">Coordinamos disponibilidad</p><p class="paso-desc">Traes las manualidades en físico</p></div>
+      <div class="paso fade-up" style="transition-delay:0.16s;"><div class="paso-num">3</div><p class="paso-titulo">Formulario de diseño</p><p class="paso-desc">Título, lomo y portada (5 opciones)</p></div>
+      <div class="paso fade-up" style="transition-delay:0.24s;"><div class="paso-num">4</div><p class="paso-titulo">Fotografío y edito</p><p class="paso-desc">Diseño editorial de tu pedido</p></div>
+      <div class="paso fade-up" style="transition-delay:0.32s;"><div class="paso-num">5</div><p class="paso-titulo">Vista previa digital</p><p class="paso-desc">Apruebas antes de imprimir</p></div>
+      <div class="paso fade-up" style="transition-delay:0.40s;"><div class="paso-num">6</div><p class="paso-titulo">Se manda a imprimir</p><p class="paso-desc">Solo con tu visto bueno</p></div>
+      <div class="paso fade-up" style="transition-delay:0.48s;"><div class="paso-num">7</div><p class="paso-titulo">Retiras tu pedido</p><p class="paso-desc">Entrega y retiro en persona</p></div>
+    </div>
+    <div class="aviso-retiro fade-up">
+      <div class="aviso-icon">📍</div>
+      <p><strong style="color:white;">Sin despachos.</strong> Todo se coordina con entrega y retiro en persona. Los pedidos se trabajan por orden de llegada — puedes escribirme en cualquier momento y tu pedido entrará a la fila en cuanto lo coordinemos.</p>
+    </div>
+  </div>
+</section>
+
+<!-- GALERÍA — 3x2 cuadrado uniforme -->
+<section class="galeria" id="galeria">
+  <div class="container">
+    <div class="fade-up">
+      <p class="section-label">Galería</p>
+      <h2 class="section-title">El arte de cada niño, hecho libro</h2>
+    </div>
+    <div class="galeria-grid">
+      <div class="galeria-item fade-up"><img src="fotos/foto-galeria-p1.jpg" alt="Niña pintando"></div>
+      <div class="galeria-item fade-up" style="transition-delay:0.05s;"><img src="fotos/foto-galeria-p2.jpg" alt="Niño dibujando"></div>
+      <div class="galeria-item fade-up" style="transition-delay:0.1s;"><img src="fotos/foto-galeria-p3.jpg" alt="Niño pintando"></div>
+      <div class="galeria-item fade-up" style="transition-delay:0.15s;"><img src="fotos/foto-galeria-p4.jpg" alt="Manos dibujando"></div>
+      <div class="galeria-item fade-up" style="transition-delay:0.2s;"><img src="fotos/foto-galeria-p5.jpg" alt="Niñas dibujando"></div>
+      <div class="galeria-item fade-up" style="transition-delay:0.25s;"><img src="fotos/foto-posavasos2.jpg" alt="Posavasos Recordalia"></div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews">
+  <div class="container">
+    <div class="fade-up">
+      <p class="section-label">Lo que dicen las familias</p>
+      <h2 class="section-title">Palabras que valen más que cualquier descripción</h2>
+    </div>
+    <div class="reviews-grid">
+
+      <div class="review-card fade-up">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-texto">"Los libros están increíbles, como siempre! Mi hija lo mira todas las noches, sin falta y ya está pensando en cómo va a ser el del próximo año 🤭 En serio, tremendo y precioso el trabajo que haces, muchas gracias! ❤️"</p>
+        <div class="review-footer">
+          <p class="review-nombre">María Ignacia V.</p>
+          <p class="review-producto">Libro de manualidades</p>
+        </div>
+      </div>
+
+      <div class="review-card fade-up" style="transition-delay:0.1s;">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-texto">"Muchísimas gracias por el libro, la verdad es que es demasiado emocionante cuando lo abrí y lo vi! Las niñitas estaban felices de ver sus creaciones de todo un año en el libro! Eres un amor además, demasiado detallista y preocupada! Haces un trabajo precioso para que todos esos recuerdos de nuestros niños queden para siempre!"</p>
+        <div class="review-footer">
+          <p class="review-nombre">Josefina A.</p>
+          <p class="review-producto">Libro de manualidades</p>
+        </div>
+      </div>
+
+      <div class="review-card fade-up" style="transition-delay:0.2s;">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-texto">"Amo como vienen los libros envueltos!! Se mueren sus caritas al abrirlo y ver que son obras de ellos!!! Fue lo máximo, muchas gracias! Ya empecé a juntar para este año 🥰"</p>
+        <div class="review-footer">
+          <p class="review-nombre">Isidora A.</p>
+          <p class="review-producto">Libro de manualidades</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="container">
+    <div class="fade-up">
+      <p class="section-label">Preguntas frecuentes</p>
+      <h2 class="section-title">Todo lo que necesitas saber</h2>
+    </div>
+    <div class="faq-grid">
+      <div class="faq-item fade-up">
+        <div class="faq-q">¿Hacen despachos a domicilio? <span>→</span></div>
+        <p class="faq-a">No, por ahora todo es entrega y retiro en persona. Lo coordinamos directamente por Instagram o correo para buscar el momento que te quede mejor.</p>
+      </div>
+      <div class="faq-item fade-up" style="transition-delay:0.05s;">
+        <div class="faq-q">¿Cuánto demora un pedido? <span>→</span></div>
+        <p class="faq-a">Los plazos son aproximados y dependen de la disponibilidad del momento. Te lo confirmo apenas coordinamos el pedido.</p>
+      </div>
+      <div class="faq-item fade-up" style="transition-delay:0.1s;">
+        <div class="faq-q">¿Puedo ver el libro antes de que se imprima? <span>→</span></div>
+        <p class="faq-a">Sí, siempre. Envío una vista previa digital completa y no mando nada a imprimir hasta que tú apruebas cada detalle.</p>
+      </div>
+      <div class="faq-item fade-up" style="transition-delay:0.15s;">
+        <div class="faq-q">¿Qué tipo de manualidades aceptan? <span>→</span></div>
+        <p class="faq-a">¡Cualquier tipo! Dibujos, pinturas, collages, manualidades con materiales. Lo importante es que sean creaciones de tu hijo o hija.</p>
+      </div>
+      <div class="faq-item fade-up" style="transition-delay:0.2s;">
+        <div class="faq-q">¿Trabajan con materiales frágiles o en mal estado? <span>→</span></div>
+        <p class="faq-a">Lo evaluamos caso a caso. Fotografío y edito profesionalmente, así que muchas veces se puede recuperar bastante. Escríbeme y te cuento.</p>
+      </div>
+      <div class="faq-item fade-up" style="transition-delay:0.25s;">
+        <div class="faq-q">¿Puedo pedirte en cualquier momento? <span>→</span></div>
+        <p class="faq-a">Sí, siempre puedes escribirme. Tu pedido entra a la fila y te lo entrego en cuanto esté listo — cada libro se trabaja por orden de llegada con mucho cuidado.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-final">
+  <div class="cta-foto">
+    <img src="fotos/foto-logo-nina.jpg" alt="Niña con logo Recordalia">
+  </div>
+  <div class="cta-content">
+    <p class="section-label">¿Lista para comenzar?</p>
+    <h2>Su arte merece <em>ocupar espacio</em> en tu vida, no en una caja.</h2>
+    <p>Escríbeme por Instagram o cotiza por correo. Tu pedido entrará a la fila en cuanto lo coordinemos — cada libro se hace con mucho cuidado.</p>
+    <div class="cta-btns">
+      <a href="https://www.instagram.com/recordaliachile" target="_blank" class="cta-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        @recordaliachile en Instagram
+      </a>
+      <a href="mailto:recordaliachile@gmail.com" class="cta-btn cta-btn-mail">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        recordaliachile@gmail.com
+      </a>
+      <span class="cupos-badge"><span class="cupos-dot"></span>Pedidos por orden de llegada · Plazos según disponibilidad</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="footer-logo"><img src="fotos/logo.svg" alt="Recordalia"></a>
+  <p>Estudio boutique · Santiago de Chile · <a href="https://www.instagram.com/recordaliachile" target="_blank">@recordaliachile</a> · <a href="mailto:recordaliachile@gmail.com">recordaliachile@gmail.com</a></p>
+  <p style="margin-top:0.5rem; font-size:0.75rem; opacity:0.5;">© 2025 Recordalia · Todos los derechos reservados</p>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
